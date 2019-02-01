@@ -1,4 +1,4 @@
-const userRouter = require('./users');
+import userRouter from './auth';
 
 const baseUrl = '/api/v1';
 
