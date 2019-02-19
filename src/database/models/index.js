@@ -1,13 +1,36 @@
-// import Sequelize from 'sequelize';
-// import User from './user';
+import config from '../../config/database';
 
-// require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
 
-// // Connecting to the database
-// const sequelize = new Sequelize(process.env.DATABASE_URL);
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
 
-// // Create table
-// // User(sequelize);
+const db = {};
+// Connecting to the database
+const sequelize = new Sequelize(`${config[env].dbURL}`, {
+  database: 'lynra',
+  username: 'postgres',
+  password: 'dB@S3',
+  dialect: 'postgres',
+});
 
+fs
+  .readdirSync(__dirname)
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+  .forEach((file) => {
+    const model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
+  });
 
-// module.exports = sequelize;
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
