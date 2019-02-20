@@ -1,4 +1,6 @@
 // import users from '../../database/models';
+import { validationResult } from 'express-validator/check';
+
 const users = [];
 
 class UserController {
