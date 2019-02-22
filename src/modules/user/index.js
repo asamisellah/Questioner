@@ -4,12 +4,14 @@ import UserController from './userController';
 import middleware from '../../middleware';
 
 const userRouter = express.Router();
-const { userValidator, getValidationResults } = middleware;
+const { userValidator: { postUser, putUser }, getValidationResults } = middleware;
+
+// Write middleware for authentication
 
 userRouter.get('/users/:userId', UserController.getUser);
 userRouter.get('/users', UserController.getUsers);
-userRouter.post('/users', userValidator, getValidationResults, UserController.createUser);
-userRouter.put('/users/:userId', userValidator, getValidationResults, UserController.updateUser);
+userRouter.post('/users', postUser, getValidationResults, UserController.createUser);
+userRouter.put('/users/:userId', putUser, getValidationResults, UserController.updateUser);
 userRouter.delete('/users/:userId', UserController.deleteUser);
 
 module.exports = userRouter;

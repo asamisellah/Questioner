@@ -9,12 +9,7 @@ const env = process.env.NODE_ENV || 'development';
 
 const db = {};
 // Connecting to the database
-const sequelize = new Sequelize(`${config[env].dbURL}`, {
-  database: 'lynra',
-  username: 'postgres',
-  password: 'dB@S3',
-  dialect: 'postgres',
-});
+const sequelize = new Sequelize(`${config[env].dbURL}`);
 
 fs
   .readdirSync(__dirname)
