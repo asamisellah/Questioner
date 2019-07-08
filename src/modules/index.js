@@ -1,4 +1,4 @@
-import userRouter from './auth';
+import userRouter from './user';
 
 const baseUrl = '/api/v1';
 

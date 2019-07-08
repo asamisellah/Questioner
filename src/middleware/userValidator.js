@@ -1,22 +1,29 @@
 import { body } from 'express-validator/check';
 
-export default [
-  body('firstName', 'FirstName is required').trim().not().isEmpty(),
-  body('lastName', 'LastName is required').trim().not().isEmpty(),
-  body('email', 'Email is required').trim().isEmail().withMessage('Invalid email')
-    .not()
-    .isEmpty(),
-  body('gender', 'Gender is required').trim().isIn(['Male', 'Female']).withMessage('Gender can either be female or male')
-    .not()
-    .isEmpty(),
-  body('dateOfBirth', 'Date of birth is required').trim().not().isAfter()
-    .withMessage('Date of birth should be on an earlier date')
-    .not()
-    .isEmpty(),
-  body('phoneNumber', 'Phone number is required').trim().isLength({ min: 10, max: 10 })
-    .withMessage('Invalid phone number')
-    .not()
-    .isEmpty(),
-  // Check for available jobs in the database
-  body('job', 'Job is required').trim().not().isEmpty(),
-];
+export default {
+  postUser: [
+    body('name', 'Name is required').trim().not().isEmpty(),
+    body('email', 'Email is required').trim().isEmail().withMessage('Invalid email')
+      .not()
+      .isEmpty(),
+    body('gender', 'Gender is required').trim().isIn(['Male', 'Female']).withMessage('Gender should be either Female or Male')
+      .not()
+      .isEmpty(),
+    // Check for available jobs in the database
+    body('occupation', 'Occupation is required').trim().not().isEmpty(),
+    body('password', 'Password is required').trim().matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/).withMessage('Password should have a minimum of eight characters, at least one letter, one number and one special character')
+      .not()
+      .isEmpty(),
+  ],
+  putUser: [
+    body('name', 'Name is required').trim().not().isEmpty(),
+    body('email', 'Email is required').trim().isEmail().withMessage('Invalid email')
+      .not()
+      .isEmpty(),
+    body('gender', 'Gender is required').trim().isIn(['Male', 'Female']).withMessage('Gender should be either Female or Male')
+      .not()
+      .isEmpty(),
+    // Check for available jobs in the database
+    body('occupation', 'Occupation is required').trim().not().isEmpty(),
+  ],
+};
